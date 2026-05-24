@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -11,11 +13,11 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: 'DM Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: 'DM Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
+  font: 15px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
   color: var(--text);
@@ -26,7 +28,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   @media (max-width: 1024px) {
-    font-size: 16px;
+    font-size: 13px;
   }
 }
 
@@ -34,7 +36,7 @@
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
-    --bg: #16171d;
+    --bg: linear-gradient(to bottom right, #000000 4%, #1f1f1f 60%, #3a3a3a 100%);
     --border: #2e303a;
     --code-bg: #1f2028;
     --accent: #c084fc;
@@ -55,15 +57,14 @@ body {
 }
 
 #root {
-  width: 1126px;
+  /* width: 1126px; */
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  flex-direction: column;  align-items: center;
+  /* justify-content: center;  box-sizing: border-box; */
 }
 
 h1,
@@ -74,21 +75,21 @@ h2 {
 }
 
 h1 {
-  font-size: 56px;
+  font-size: 53px;
   letter-spacing: -1.68px;
   margin: 32px 0;
   @media (max-width: 1024px) {
-    font-size: 36px;
+    font-size: 33px;
     margin: 20px 0;
   }
 }
 h2 {
-  font-size: 24px;
+  font-size: 21px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
   @media (max-width: 1024px) {
-    font-size: 20px;
+    font-size: 17px;
   }
 }
 p {
@@ -104,8 +105,180 @@ code,
 }
 
 code {
-  font-size: 15px;
+  font-size: 12px;
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* Navbar styles using DM Sans */
+.navbar {
+  font-family: 'DM Sans', var(--sans);
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  gap: 24px;
+  padding: 40px 20px;
+  color: var(--text-h);
+}
+
+.navbar-logo {
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.3px;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.navbar-links a {
+  color: var(--text-h);
+  text-decoration: none;
+  opacity: 0.95;
+}
+
+.navbar-links a:hover {
+  opacity: 1;
+}
+
+.navbar-cta {
+  font-family: 'DM Sans', var(--sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-h);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.navbar-cta:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.homepage-copy {
+  align-self: flex-start;
+  max-width: 320px;
+  margin: 4% 0 0 13%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 10;
+}
+
+.homepage-index {
+  font-size: 0.88rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.homepage-copy h2 {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-align: left;
+}
+
+.homepage-copy p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  text-align: left;
+}
+
+.homepage-divider {
+  width: 90%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+}
+
+/* About box placed as a fixed square at the bottom of the homepage column */
+.about-me {
+  position: fixed;
+  left: 13%;
+  bottom: 32px;
+  max-width: 300px;
+  /* allow the box to size to content rather than a fixed square */
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 14px 18px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+}
+
+.about-me h3 {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  opacity: 0.95;
+  text-align: center;
+}
+
+.about-me p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.82);
+  text-align: center;
+}
+
+.sidebar {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  z-index: 10;
+}
+
+.sidebar-social {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.sidebar a {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.sidebar a:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.sidebar svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--text-h);
+}
+
