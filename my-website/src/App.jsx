@@ -10,7 +10,7 @@ function App() {
       <Navbar />
       <Homepage />
       <Sidebar />
-      {/* <SplineRobot /> */}
+      <SplineRobot />
     </>
   )
 }
