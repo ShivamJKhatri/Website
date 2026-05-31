@@ -26,3 +26,4 @@ export default function App() {
     <Spline scene="https://prod.spline.design/ANQ2oDIG0IimKHju/scene.splinecode" />
   );
 }
+

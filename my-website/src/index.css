@@ -1,17 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
+  --text: #52525b;
+  --text-h: #0f0f11;
   --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  --border: #e4e4e7;
+  --code-bg: #f4f4f5;
+  --accent: #18181b;
+  --accent-bg: rgba(24, 24, 27, 0.05);
+  --accent-border: rgba(24, 24, 27, 0.15);
+  --glow-rgb: 24, 24, 27;
+  --spotlight-rgb: 24, 24, 27;
+  --social-bg: rgba(244, 244, 245, 0.5);
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    rgba(0, 0, 0, 0.05) 0 10px 15px -3px, rgba(0, 0, 0, 0.02) 0 4px 6px -2px;
 
   --sans: 'DM Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: 'DM Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -34,17 +36,19 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: linear-gradient(to bottom right, #000000 4%, #1f1f1f 60%, #3a3a3a 100%);
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
+    --text: #a1a1aa;
+    --text-h: #f4f4f5;
+    --bg: linear-gradient(to bottom right, #09090b 4%, #18181b 60%, #27272a 100%);
+    --border: #27272a;
+    --code-bg: #18181b;
+    --accent: #f4f4f5;
+    --accent-bg: rgba(244, 244, 245, 0.08);
+    --accent-border: rgba(244, 244, 245, 0.25);
+    --glow-rgb: 255, 255, 255;
+    --spotlight-rgb: 255, 255, 255;
+    --social-bg: rgba(39, 39, 42, 0.5);
     --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+      rgba(0, 0, 0, 0.5) 0 10px 15px -3px, rgba(0, 0, 0, 0.3) 0 4px 6px -2px;
   }
 
   #social .button-icon {
