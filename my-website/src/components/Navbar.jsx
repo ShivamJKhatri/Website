@@ -7,7 +7,7 @@ export default function Navbar({ navigate = () => {} }) {
     return (
         <>
             <nav className="navbar">
-                <div className="navbar-logo">SK</div>
+                {/* <div className="navbar-logo">SK</div> */}
                 <ul className="navbar-links">
                     <li>
                         <a href="/" onClick={(e) => go(e, '/')}>Home</a>
@@ -19,13 +19,9 @@ export default function Navbar({ navigate = () => {} }) {
                         <a href="/experiences" onClick={(e) => go(e, '/experiences')}>Experiences</a>
                     </li>
                     <li>
-                        <a href="#skills">Skills</a>
-                    </li>
-                    <li>
-                        <a href="#contact">Contact</a>
+                        <a href="/contact" onClick={(e) => go(e, '/contact')}>Contact</a>
                     </li>
                 </ul>
-                <div className="navbar-cta">Ask my AI something!</div>
             </nav>
         </>
     )

@@ -875,3 +875,329 @@
     padding: 20px 22px;
   }
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ─── Contact Section
+   ────────────────────────────────────────────────────────────────────────── */
+
+.contact-section {
+  width: 100%;
+  max-width: 680px; /* Aligns with the compact, neat look of the mockup */
+  margin: 0 auto;
+  padding: 80px 20px 100px;
+}
+
+.contact-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-inner--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin: 0 0 8px;
+  opacity: 0.6;
+}
+
+.contact-heading {
+  font-family: var(--heading);
+  font-weight: 500;
+  font-size: 32px;
+  letter-spacing: -0.8px;
+  color: var(--text-h);
+  margin: 0 0 16px;
+}
+
+.contact-divider {
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  margin-bottom: 36px;
+}
+
+.contact-desc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 0 0 32px;
+  text-align: left;
+  max-width: 580px;
+  opacity: 0.85;
+}
+
+/* Status Badges Group */
+.contact-status-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+/* Capsule for Internship Status */
+.contact-status-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 8px 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-h);
+}
+
+@media (prefers-color-scheme: dark) {
+  .contact-status-capsule {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+}
+
+.contact-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.contact-status-text {
+  opacity: 0.9;
+  letter-spacing: -0.2px;
+}
+
+/* Currently working details */
+.contact-current-job {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.contact-job-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* Contact Cards Stack */
+.contact-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.contact-card-link-wrapper {
+  text-decoration: none;
+  width: 100%;
+  display: block;
+}
+
+/* Minimalist Contact Card */
+.contact-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: transform 0.15s ease-out, box-shadow 0.25s ease, border-color 0.25s ease;
+  will-change: transform;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  .contact-card {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .contact-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.contact-card-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transform: translateZ(15px);
+}
+
+.contact-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-h);
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  .contact-icon-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+}
+
+.contact-card:hover .contact-icon-box {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.contact-icon-box svg {
+  width: 18px;
+  height: 18px;
+}
+
+.contact-card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.contact-card-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.contact-card-val {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+.contact-card-note {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text);
+  opacity: 0.45;
+  transform: translateZ(20px);
+}
+
+.contact-card-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-h);
+  opacity: 0.4;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translateZ(20px);
+}
+
+.contact-card-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.contact-card:hover .contact-card-arrow {
+  opacity: 0.85;
+  transform: translateZ(20px) translate(2px, -2px);
+}
+
+/* Download Resume Outline Button */
+.contact-resume-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 24px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-h);
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  .contact-resume-btn {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.005);
+  }
+}
+
+.contact-resume-btn:hover {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.contact-resume-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Responsive adjustments for contact */
+@media (max-width: 600px) {
+  .contact-section {
+    padding: 60px 0 40px;
+  }
+  .contact-inner {
+    padding: 0 18px;
+  }
+  .contact-status-capsule {
+    padding: 6px 14px;
+    font-size: 11px;
+  }
+  .contact-card {
+    padding: 14px 16px;
+  }
+  .contact-card-val {
+    font-size: 13.5px;
+  }
+  .contact-card-note {
+    font-size: 9.5px;
+  }
+}
