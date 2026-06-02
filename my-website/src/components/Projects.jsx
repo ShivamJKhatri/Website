@@ -6,7 +6,7 @@ import vexNotebookImg from "../assets/project_vex_notebook.png";
 const projects = [
   {
     id: 1,
-    title: "Autonomous Sorting Robot",
+    title: "Autonomous Poker Robot",
     description:
       "Designed and programmed a fully autonomous robot capable of identifying, sorting, and stacking objects by color and size in real time. Implemented PID control loops for precise motor actuation and integrated a computer vision pipeline using OpenCV for object classification.",
     achievement: { icon: "🏆", label: "1st Place — Regional" },
