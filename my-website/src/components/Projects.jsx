@@ -6,51 +6,47 @@ import vexNotebookImg from "../assets/project_vex_notebook.png";
 const projects = [
   {
     id: 1,
-    title: "Autonomous Poker Robot",
+    title: "StabiliKnee - Active Knee Brace",
     description:
-      "Designed and programmed a fully autonomous robot capable of identifying, sorting, and stacking objects by color and size in real time. Implemented PID control loops for precise motor actuation and integrated a computer vision pipeline using OpenCV for object classification.",
-    achievement: { icon: "🏆", label: "1st Place — Regional" },
-    tags: ["Robotics", "CV", "Embedded"],
+      "Designed and created an active knee brace which used an IMU sensor and a Flex Bend sensor in order to detect dangerous knee movements only 300ms within happening. I also used a servo motor to react to the detection and trigger an opposing force to support the knee. It resutled in a 70% reduction in simulated knee dislocations. ",
+    achievement: { icon: "🏆", label: "3rd - Canadas Largest Hardware Hackathon" },
+    tags: ["Embedded Systems", "Arduino", "IMU" , "Sensor Integration"],
     image: sortingRobotImg,
-    github: "#",
-    live: "#",
+    github: "https://github.com/ShivamJKhatri/StabiliKnee",
+    live: "https://devpost.com/software/stabiliknee",
     languages: [
-      { name: "Python", pct: 45, color: "#3572A5" },
-      { name: "C++", pct: 30, color: "#f34b7d" },
-      { name: "Makefile", pct: 15, color: "#427819" },
-      { name: "Other", pct: 10, color: "#888" },
+      { name: "C++", pct: 30, color: "#e8c44a" },
+
     ],
   },
   {
     id: 2,
-    title: "ERP Documentation System",
+    title: "Autonomous Page Navigator",
     description:
-      "Built a scalable documentation framework to transition institutional trade knowledge into formal engineering SOPs for a custom van manufacturing company. Produced work instructions, BOMs, and 2D schematics at one complete package per 48 hours.",
-    achievement: { icon: "📄", label: "40+ SOPs Produced" },
-    tags: ["Manufacturing", "CAD", "ERP"],
+      "Created an autonomous page naivgation system which allowed users to enter in simple prompts like “go to math 135 assignments page”. The Gemini API then parses the information received in a JSON file and then sequentially executes multiple commands using DOM Manipulation in order to reroute the user to that portion of the website within just a few seconds",
+    achievement: { icon: "📄", label: "Redirection time < 3ms" },
+    tags: ["Javascript", "DOM Manipulation", "API Integration" , "AI"],
     image: erpDocsImg,
-    github: null,
-    live: "#",
+    github: "https://github.com/ShivamJKhatri/learn-ai",
+    live: null,
     languages: [
-      { name: "Fusion 360", pct: 55, color: "#f5821f" },
-      { name: "ClickUp", pct: 30, color: "#7b68ee" },
-      { name: "CSV / BOM", pct: 15, color: "#4caf7d" },
+      { name: "JavaScript", pct: 79.2, color: "#f5821f" },
+      { name: "CSS", pct: 15.7, color: "#7b68ee" },
+      { name: "HTML", pct: 5.1, color: "#4caf7d" },
     ],
   },
   {
     id: 3,
-    title: "VEX Robotics Engineering Notebook",
+    title: "Autonomous Poker Bot",
     description:
-      "Served as documentation lead for three consecutive seasons, producing a 300+ page engineering notebook. Covered mechanism design, iterative testing, match strategy, and post-competition retrospectives.",
-    achievement: { icon: "📘", label: "300+ Page Notebook" },
-    tags: ["Documentation", "Mechanical", "Strategy"],
+      "Created an autonomous poker bot which used 5 sensors, in total, to deal cards one by one, for up to 9 players. It is also capable of tracking bets, and folds, while using a card detection system to allow players to raise, call and fold. Acheived ±5% placement accuracy at 20 cm range and 95% single-card dispense reliability across 50 full-game test",
+    achievement: { icon: "📘", label: "95% Single-Card Dispense Reliability" },
+    tags: ["Sensor Integration", "Firmware", "Documentation", "Mechanical", "Strategy"],
     image: vexNotebookImg,
     github: null,
     live: null,
     languages: [
-      { name: "CAD", pct: 40, color: "#00aacc" },
-      { name: "Technical Writing", pct: 40, color: "#aaa" },
-      { name: "Data Analysis", pct: 20, color: "#e8c44a" },
+      { name: "C++", pct: 100, color: "#e8c44a" },
     ],
   },
 ];
@@ -244,7 +240,7 @@ export default function Projects() {
       <div className="proj-inner">
         <p className="proj-label">Selected work</p>
         <h2 className="proj-heading">Projects</h2>
-        <div className="proj-divider" />
+        {/* <div className="proj-divider" /> */}
 
         <div className="proj-stack">
           {projects.map((project, i) => (

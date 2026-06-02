@@ -261,7 +261,7 @@
 
 .proj-section {
   width: 100%;
-  padding: 80px 0 60px;
+  padding: 30px 0 40px;
   box-sizing: border-box;
 }
 
@@ -617,7 +617,7 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 80px 20px 100px;
+  padding: 30px 20px 40px;
 }
 
 .exp-inner {
@@ -884,7 +884,7 @@
   width: 100%;
   max-width: 680px; /* Aligns with the compact, neat look of the mockup */
   margin: 0 auto;
-  padding: 80px 20px 100px;
+  padding: 30px 0px 10px;
 }
 
 .contact-inner {
