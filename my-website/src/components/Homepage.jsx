@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-// import LidarScanner from "./LidarScanner.jsx";
+import LidarScanner from "./LidarScanner.jsx";
 import KinematicLinkage from "./KinematicLinkage.jsx";
-import Resume from "../assets/Resume.pdf";
 
 export default function Homepage() {
   const [visible, setVisible] = useState(false);
@@ -25,7 +24,7 @@ export default function Homepage() {
       <div className="home-status-wrapper">
         <div className="home-status-capsule">
           <span className="home-status-dot" />
-          <span className="home-status-text">Open to internships · Winter 2027</span>
+          <span className="home-status-text">Open to internships · Fall 2026</span>
         </div>
       </div>
 
@@ -37,7 +36,7 @@ export default function Homepage() {
 
       {/* 3. Description Sub-headline */}
       <p className="home-subheadline">
-        Mechatronics Engineering student at UWaterloo. I love new tech and building cool things.
+        Mechatronics Engineering student at UWaterloo. I build things that move, sense, and think.
       </p>
 
       {/* 4. Call to Action Buttons */}
@@ -45,7 +44,7 @@ export default function Homepage() {
         <a href="/projects" className="home-btn home-btn--primary">
           View my work
         </a>
-        <a href={Resume} download className="home-btn home-btn--outline">
+        <a href="/resume.pdf" download className="home-btn home-btn--outline">
           <svg 
             viewBox="0 0 24 24" 
             fill="none" 
@@ -66,20 +65,20 @@ export default function Homepage() {
       {/* 5. Statistics Grid Row */}
       <div className="home-stats-row">
         <div className="home-stat-item">
-          <span className="home-stat-num">2+ Yrs</span>
-          <span className="home-stat-label">Software and Hardware Development</span>
+          <span className="home-stat-num">3+</span>
+          <span className="home-stat-label">Years of CAD</span>
         </div>
         <div className="home-stat-item">
-          <span className="home-stat-num">Top 4</span>
-          <span className="home-stat-label">Hackathon and Robotics Placements</span>
+          <span className="home-stat-num">40+</span>
+          <span className="home-stat-label">SOPs Authored</span>
         </div>
         <div className="home-stat-item">
-          <span className="home-stat-num">5</span>
-          <span className="home-stat-label">Mechatronics Projects</span>
+          <span className="home-stat-num">300pg</span>
+          <span className="home-stat-label">Engineering Docs</span>
         </div>
         <div className="home-stat-item">
           <span className="home-stat-num">4</span>
-          <span className="home-stat-label">Robotics Awards</span>
+          <span className="home-stat-label">Internship Terms</span>
         </div>
       </div>
 
@@ -95,14 +94,14 @@ export default function Homepage() {
         </div>
         <div className="home-skills-col">
           <div className="home-skills-grid">
+            <span className="home-skill-tag">Fusion 360</span>
+            <span className="home-skill-tag">SolidWorks</span>
+            <span className="home-skill-tag">AutoCAD</span>
             <span className="home-skill-tag">Python</span>
-            <span className="home-skill-tag">React</span>
             <span className="home-skill-tag">C++</span>
-            <span className="home-skill-tag">Javascript</span>
-            <span className="home-skill-tag">HTML/CSS</span>
-            <span className="home-skill-tag">Solidworks</span>
-            <span className="home-skill-tag">Embedded Systems</span>
-
+            <span className="home-skill-tag">React</span>
+            <span className="home-skill-tag">Mechatronics</span>
+            <span className="home-skill-tag">ERP</span>
           </div>
         </div>
       </div>
@@ -134,7 +133,7 @@ export default function Homepage() {
             <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
             <path d="M6 12v5c0 2 2.5 3 6 3s6-1 6-3v-5" />
           </svg>
-          <span>UWaterloo · 2A Mechatronics</span>
+          <span>UWaterloo · 3A Mechatronics</span>
         </div>
       </footer>
     </main>
