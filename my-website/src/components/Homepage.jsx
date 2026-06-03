@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-// import LidarScanner from "./LidarScanner.jsx";
 import KinematicLinkage from "./KinematicLinkage.jsx";
 import Resume from "../assets/Resume.pdf";
+import { Download, Briefcase, MapPin, GraduationCap } from "lucide-react";
 
 export default function Homepage() {
   const [visible, setVisible] = useState(false);
@@ -46,19 +46,7 @@ export default function Homepage() {
           View my work
         </a>
         <a href={Resume} download className="home-btn home-btn--outline">
-          <svg 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            className="home-btn-icon"
-          >
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-          </svg>
+          <Download size={16} strokeWidth={2} className="home-btn-icon" />
           Resume
         </a>
       </div>
@@ -114,26 +102,17 @@ export default function Homepage() {
         </div>
         
         <div className="home-footer-segment">
-          <svg className="home-footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-          </svg>
+          <Briefcase size={14} strokeWidth={1.75} className="home-footer-icon" />
           <span>Eng. Intern @ Yama Vans</span>
         </div>
 
         <div className="home-footer-segment">
-          <svg className="home-footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
+          <MapPin size={14} strokeWidth={1.75} className="home-footer-icon" />
           <span>Calgary, AB</span>
         </div>
 
         <div className="home-footer-segment">
-          <svg className="home-footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-            <path d="M6 12v5c0 2 2.5 3 6 3s6-1 6-3v-5" />
-          </svg>
+          <GraduationCap size={14} strokeWidth={1.75} className="home-footer-icon" />
           <span>UWaterloo · 2A Mechatronics</span>
         </div>
       </footer>

@@ -33,9 +33,9 @@ function App() {
       <Sidebar />
       {/* <SplineRobot /> */}
       
-      <button className="sticky-ai-cta" aria-label="Ask my AI">
+      {/* <button className="sticky-ai-cta" aria-label="Ask my AI">
         <span className="sticky-ai-sparkle">✨</span> Ask my AI something!
-      </button>
+      </button> */}
     </>
   )
 }

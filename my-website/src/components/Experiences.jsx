@@ -1,5 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 
+import { useTilt } from "../hooks/useTilt";
+import { useScrollReveal } from "../hooks/useScrollReveal";
+
 const experiences = [
   {
     id: 1,
@@ -42,81 +45,9 @@ const experiences = [
   }
 ];
 
-/* ── 3D Tilt hook for Experience Cards ── */
-function useTilt(ref) {
-  const [style, setStyle] = useState({
-    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)"
-  });
-  const rafId = useRef(null);
-
-  const handleMove = useCallback((e) => {
-    const el = ref.current;
-    if (!el) return;
-
-    if (rafId.current) cancelAnimationFrame(rafId.current);
-
-    rafId.current = requestAnimationFrame(() => {
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const midX = rect.width / 2;
-      const midY = rect.height / 2;
-
-      // Subtle tilt: max ±5 degrees for ultra-minimalist feel
-      const rotateY = ((x - midX) / midX) * 5;
-      const rotateX = ((midY - y) / midY) * 5;
-
-      const shadowX = -((x - midX) / midX) * 12;
-      const shadowY = -((y - midY) / midY) * 12;
-
-      setStyle({
-        transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.015)`,
-        boxShadow: `${shadowX}px ${shadowY}px 25px rgba(0, 0, 0, 0.35), 0 0 20px rgba(var(--glow-rgb), 0.05)`
-      });
-    });
-  }, [ref]);
-
-  const handleLeave = useCallback(() => {
-    if (rafId.current) cancelAnimationFrame(rafId.current);
-    setStyle({
-      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)",
-      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)"
-    });
-  }, []);
-
-  return { style, handleMove, handleLeave };
-}
-
-/* ── Scroll Reveal hook ── */
-function useScrollReveal() {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return { ref, visible };
-}
-
 function ExperienceCard({ exp, index }) {
   const cardRef = useRef(null);
-  const { style: tiltStyle, handleMove, handleLeave } = useTilt(cardRef);
-  const { ref: revealRef, visible } = useScrollReveal();
+  const { style: tiltStyle, handleMove, handleLeave } = useTilt(cardRef, { maxDeg: 5, maxShadow: 12, scale: 1.015 });  const { ref: revealRef, visible } = useScrollReveal();
 
   return (
     <div
