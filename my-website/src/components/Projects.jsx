@@ -1,13 +1,31 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useRef } from "react";
 import sortingRobotImg from "../assets/project_sorting_robot.png";
 import erpDocsImg from "../assets/project_erp_docs.png";
 import vexNotebookImg from "../assets/project_vex_notebook.png";
 
 import { FaGithub } from "react-icons/fa";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Trophy, Zap, Target } from "lucide-react";
 
 import { useTilt } from "../hooks/useTilt";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+
+const ACHIEVEMENT_ICONS = {
+  trophy: Trophy,
+  zap: Zap,
+  target: Target,
+};
+
+/* One color per label — no overlap between language % bars and stack bars */
+const BAR_COLORS = {
+  JavaScript: "#f0db4f",
+  CSS: "#2965f1",
+  HTML: "#e44d26",
+  "C++": "#4a9fd4",
+  ESP32: "#14b8a6",
+  IMU: "#a855f7",
+  Firmware: "#f97316",
+  Mechanical: "#78716c",
+};
 
 const projects = [
   {
@@ -15,50 +33,83 @@ const projects = [
     title: "StabiliKnee - Active Knee Brace",
     description:
       "Designed and created an active knee brace which used an IMU sensor and a Flex Bend sensor in order to detect dangerous knee movements only 300ms within happening. I also used a servo motor to react to the detection and trigger an opposing force to support the knee. It resutled in a 70% reduction in simulated knee dislocations. ",
-    achievement: { icon: "🏆", label: "3rd - Canadas Largest Hardware Hackathon" },
-    tags: ["Embedded Systems", "Arduino", "IMU" , "Sensor Integration"],
+    achievement: {
+      icon: "trophy",
+      label: "3rd · Canada's Largest Hardware Hackathon",
+    },
+    stack: [
+      { name: "C++", color: BAR_COLORS["C++"] },
+      { name: "ESP32", color: BAR_COLORS.ESP32 },
+      { name: "IMU", color: BAR_COLORS.IMU },
+    ],
+    tags: ["Embedded Systems", "Arduino", "IMU", "Sensor Integration"],
     image: sortingRobotImg,
     github: "https://github.com/ShivamJKhatri/StabiliKnee",
     live: "https://devpost.com/software/stabiliknee",
-    languages: [
-      { name: "C++", pct: 30, color: "#e8c44a" },
-
-    ],
   },
   {
     id: 2,
     title: "Autonomous Page Navigator",
     description:
       "Created an autonomous page naivgation system which allowed users to enter in simple prompts like “go to math 135 assignments page”. The Gemini API then parses the information received in a JSON file and then sequentially executes multiple commands using DOM Manipulation in order to reroute the user to that portion of the website within just a few seconds",
-    achievement: { icon: "📄", label: "Redirection time < 3ms" },
-    tags: ["Javascript", "DOM Manipulation", "API Integration" , "AI"],
+    achievement: { icon: "zap", label: "Sub-3s page redirection" },
+    languages: [
+      { name: "JavaScript", pct: 79.2, color: BAR_COLORS.JavaScript },
+      { name: "CSS", pct: 15.7, color: BAR_COLORS.CSS },
+      { name: "HTML", pct: 5.1, color: BAR_COLORS.HTML },
+    ],
+    tags: ["Javascript", "DOM Manipulation", "API Integration", "AI"],
     image: erpDocsImg,
     github: "https://github.com/ShivamJKhatri/learn-ai",
     live: null,
-    languages: [
-      { name: "JavaScript", pct: 79.2, color: "#f5821f" },
-      { name: "CSS", pct: 15.7, color: "#7b68ee" },
-      { name: "HTML", pct: 5.1, color: "#4caf7d" },
-    ],
   },
   {
     id: 3,
     title: "Autonomous Poker Bot",
     description:
       "Created an autonomous poker bot which used 5 sensors, in total, to deal cards one by one, for up to 9 players. It is also capable of tracking bets, and folds, while using a card detection system to allow players to raise, call and fold. Acheived ±5% placement accuracy at 20 cm range and 95% single-card dispense reliability across 50 full-game test",
-    achievement: { icon: "📘", label: "95% Single-Card Dispense Reliability" },
+    achievement: { icon: "target", label: "95% dispense reliability" },
+    stack: [
+      { name: "C++", color: BAR_COLORS["C++"] },
+      { name: "Firmware", color: BAR_COLORS.Firmware },
+      { name: "Mechanical", color: BAR_COLORS.Mechanical },
+    ],
     tags: ["Sensor Integration", "Firmware", "Documentation", "Mechanical", "Strategy"],
     image: vexNotebookImg,
     github: null,
     live: null,
-    languages: [
-      { name: "C++", pct: 100, color: "#e8c44a" },
-    ],
   },
 ];
 
-/* ── Sub-components ── */
+function StackBar({ stack }) {
+  if (!stack?.length) return null;
+
+  return (
+    <div className="proj-languages">
+      <div className="proj-lang-bar">
+        {stack.map((item) => (
+          <div
+            key={item.name}
+            className="proj-lang-segment"
+            style={{ flex: 1, background: item.color }}
+          />
+        ))}
+      </div>
+      <div className="proj-lang-labels">
+        {stack.map((item) => (
+          <span key={item.name} className="proj-lang-label">
+            <span className="proj-lang-dot" style={{ background: item.color }} />
+            {item.name}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function LanguageBar({ languages }) {
+  if (!languages || languages.length < 2) return null;
+
   return (
     <div className="proj-languages">
       <div className="proj-lang-bar">
@@ -82,9 +133,26 @@ function LanguageBar({ languages }) {
   );
 }
 
+function AchievementBadge({ achievement }) {
+  const Icon = ACHIEVEMENT_ICONS[achievement.icon];
+  if (!Icon) return null;
+
+  return (
+    <span className="proj-card-badge">
+      <Icon size={13} strokeWidth={2} className="proj-card-badge-icon" aria-hidden="true" />
+      {achievement.label}
+    </span>
+  );
+}
+
 function ProjectCard({ project, index }) {
   const cardRef = useRef(null);
-  const { style: tiltStyle, spotStyle, handleMove, handleLeave } = useTilt(cardRef, { maxDeg: 10, maxShadow: 20, scale: 1.03 });  const { ref: revealRef, visible } = useScrollReveal();
+  const { style: tiltStyle, spotStyle, handleMove, handleLeave } = useTilt(cardRef, {
+    maxDeg: 10,
+    maxShadow: 20,
+    scale: 1.03,
+  });
+  const { ref: revealRef, visible } = useScrollReveal();
 
   return (
     <div
@@ -99,39 +167,30 @@ function ProjectCard({ project, index }) {
         onMouseLeave={handleLeave}
         style={tiltStyle}
       >
-        {/* Spotlight overlay */}
         <div className="proj-card-spotlight" style={spotStyle} />
-
-        {/* Glowing border on hover */}
         <div className="proj-card-glow" />
 
-        {/* Image */}
         <div className="proj-card-image">
           <img src={project.image} alt={project.title} />
         </div>
 
-        {/* Content */}
         <div className="proj-card-content">
-          {/* Title + badge */}
           <div className="proj-card-header">
             <h3 className="proj-card-title">{project.title}</h3>
-            <span className="proj-card-badge">
-              <span className="proj-card-badge-icon">{project.achievement.icon}</span>
-              {project.achievement.label}
-            </span>
+            <AchievementBadge achievement={project.achievement} />
           </div>
 
-          {/* Description */}
           <p className="proj-card-desc">{project.description}</p>
 
-          {/* Language bar */}
+          <StackBar stack={project.stack} />
           <LanguageBar languages={project.languages} />
 
-          {/* Footer: tags + links */}
           <div className="proj-card-footer">
             <div className="proj-card-tags">
               {project.tags.map((tag) => (
-                <span key={tag} className="proj-card-tag">{tag}</span>
+                <span key={tag} className="proj-card-tag">
+                  {tag}
+                </span>
               ))}
             </div>
             <div className="proj-card-links">
@@ -159,7 +218,6 @@ export default function Projects() {
       <div className="proj-inner">
         <p className="proj-label">Selected work</p>
         <h2 className="proj-heading">Projects</h2>
-        {/* <div className="proj-divider" /> */}
 
         <div className="proj-stack">
           {projects.map((project, i) => (

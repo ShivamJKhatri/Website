@@ -45,7 +45,7 @@ export default function Homepage() {
         <a href="/projects" className="home-btn home-btn--primary">
           View my work
         </a>
-        <a href={Resume} download className="home-btn home-btn--outline">
+        <a href={Resume} download className="home-btn home-btn--outline" aria-label="Download resume PDF">
           <Download size={16} strokeWidth={2} className="home-btn-icon" />
           Resume
         </a>
@@ -102,6 +102,7 @@ export default function Homepage() {
         </div>
         
         <div className="home-footer-segment">
+          <span className="home-org-badge home-org-badge--yama" aria-hidden="true">YV</span>
           <Briefcase size={14} strokeWidth={1.75} className="home-footer-icon" />
           <span>Eng. Intern @ Yama Vans</span>
         </div>
@@ -112,6 +113,7 @@ export default function Homepage() {
         </div>
 
         <div className="home-footer-segment">
+          <span className="home-org-badge home-org-badge--uw" aria-hidden="true">UW</span>
           <GraduationCap size={14} strokeWidth={1.75} className="home-footer-icon" />
           <span>UWaterloo · 2A Mechatronics</span>
         </div>

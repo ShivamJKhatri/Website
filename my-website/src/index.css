@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
   --text: #52525b;
@@ -12,12 +12,34 @@
   --glow-rgb: 24, 24, 27;
   --spotlight-rgb: 24, 24, 27;
   --social-bg: rgba(244, 244, 245, 0.5);
+  --nav-bg: rgba(255, 255, 255, 0.7);
+  --on-accent: #ffffff; /* text/icon color on an accent-filled surface */
   --shadow:
     rgba(0, 0, 0, 0.05) 0 10px 15px -3px, rgba(0, 0, 0, 0.02) 0 4px 6px -2px;
 
+  /* 8px-based spacing scale */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 96px;
+
   --sans: 'DM Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: 'DM Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  --heading: 'Space Grotesk', 'DM Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  /* Modular type scale (1.25 ratio, 16px base) */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 20px;
+  --text-xl: 25px;
+  --text-2xl: 31px;
+  --text-3xl: 39px;
+  --text-4xl: 49px;
+  --text-5xl: 61px;
 
   font: 15px/145% var(--sans);
   letter-spacing: 0.18px;
@@ -47,6 +69,8 @@
     --glow-rgb: 255, 255, 255;
     --spotlight-rgb: 255, 255, 255;
     --social-bg: rgba(39, 39, 42, 0.5);
+    --nav-bg: rgba(20, 20, 23, 0.6);
+    --on-accent: #0a0a0a;
     --shadow:
       rgba(0, 0, 0, 0.5) 0 10px 15px -3px, rgba(0, 0, 0, 0.3) 0 4px 6px -2px;
   }
@@ -58,6 +82,51 @@
 
 body {
   margin: 0;
+}
+
+#main-content {
+  width: 100%;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 1001;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-status-dot,
+  .contact-status-dot {
+    animation: none;
+  }
+
+  .home-container,
+  .proj-card-wrapper,
+  .exp-card-wrapper,
+  .contact-inner {
+    transition: none;
+  }
 }
 
 #root {
@@ -115,18 +184,20 @@ code {
   background: var(--code-bg);
 }
 
-/* Navbar styles using DM Sans */
+/* Floating glass pill navbar */
 .navbar {
   font-family: 'DM Sans', var(--sans);
-  font-weight: 300;
   display: flex;
   align-items: center;
-  justify-content: center; /* Center navigation links perfectly */
-  position: relative;
+  justify-content: center;
+  position: sticky;
+  top: 16px;
+  z-index: 100;
   width: 90%;
   max-width: 1100px;
-  padding: 24px 20px;
+  padding: 16px 20px 0;
   color: var(--text-h);
+  box-sizing: border-box;
 }
 
 .navbar-logo {
@@ -141,21 +212,39 @@ code {
 .navbar-links {
   list-style: none;
   display: flex;
-  gap: 40px;
+  gap: 4px;
   margin: 0;
-  padding: 0;
+  padding: 6px;
   align-items: center;
+  background: var(--nav-bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow: var(--shadow);
 }
 
 .navbar-links a {
+  display: block;
   color: var(--text-h);
   text-decoration: none;
-  opacity: 0.95;
-  transition: opacity 0.2s ease;
+  opacity: 0.65;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .navbar-links a:hover {
   opacity: 1;
+  background: var(--accent-bg);
+}
+
+.navbar-links a.is-active {
+  opacity: 1;
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 /* Global Sticky AI CTA Button */
@@ -241,7 +330,7 @@ code {
 .home-container {
   width: 100%;
   max-width: 1100px;
-  margin: 15px auto 30px;
+  margin: var(--space-3) auto var(--space-6);
   padding: 0 40px;
   box-sizing: border-box;
   display: flex;
@@ -303,15 +392,15 @@ code {
 .home-title {
   font-family: var(--heading);
   font-size: 58px;
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -1.8px;
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -2.2px;
   color: var(--text-h);
   margin: 0 0 16px;
 }
 
 .home-title-dot {
-  color: var(--accent);
+  color: #10b981;
 }
 
 /* Sub-headline description */
@@ -348,7 +437,7 @@ code {
 
 .home-btn--primary {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
   border: 1px solid var(--accent);
 }
 
@@ -535,6 +624,45 @@ code {
   flex-shrink: 0;
 }
 
+.home-org-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.home-org-badge--yama {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-h);
+}
+
+.home-org-badge--uw {
+  background: rgba(255, 204, 0, 0.12);
+  border: 1px solid rgba(255, 204, 0, 0.28);
+  color: #ffcc00;
+}
+
+@media (prefers-color-scheme: light) {
+  .home-org-badge--yama {
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .home-org-badge--uw {
+    background: rgba(180, 130, 0, 0.12);
+    border: 1px solid rgba(180, 130, 0, 0.25);
+    color: #92680a;
+  }
+}
+
 /* Responsive adjustments for homepage */
 @media (max-width: 768px) {
   .home-container {
@@ -615,5 +743,11 @@ code {
   width: 20px;
   height: 20px;
   fill: var(--text-h);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
 }
 

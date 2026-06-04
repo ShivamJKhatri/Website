@@ -7,9 +7,12 @@ import Contact from './components/Contact.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import SplineRobot from './SplineRobot.jsx'
 import { useState, useEffect } from 'react'
+import { usePageMeta } from './hooks/usePageMeta.js'
 
 function App() {
   const [path, setPath] = useState(window.location.pathname || '/')
+
+  usePageMeta(path)
 
   useEffect(() => {
     const onPop = () => setPath(window.location.pathname || '/')
@@ -25,11 +28,16 @@ function App() {
 
   return (
     <>
-      <Navbar navigate={navigate} />
-      {path === '/' && <Homepage />}
-      {path === '/projects' && <Projects />}
-      {path === '/experiences' && <Experiences />}
-      {path === '/contact' && <Contact />}
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
+      <Navbar navigate={navigate} path={path} />
+      <div id="main-content">
+        {path === '/' && <Homepage />}
+        {path === '/projects' && <Projects />}
+        {path === '/experiences' && <Experiences />}
+        {path === '/contact' && <Contact />}
+      </div>
       <Sidebar />
       {/* <SplineRobot /> */}
       

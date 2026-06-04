@@ -19,23 +19,30 @@ export default function KinematicLinkage() {
       setDimensions({ width: window.innerWidth, height: window.innerHeight });
     };
 
+    const isMobileView = () =>
+      window.matchMedia("(max-width: 768px)").matches;
+    const prefersReducedMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Track Mouse
     const handleMouseMove = (e) => {
+      if (isMobileView() || prefersReducedMotion()) return;
       mouseRef.current.targetX = e.clientX;
       mouseRef.current.targetY = e.clientY;
       mouseRef.current.active = true;
     };
 
     const handleMouseLeave = () => {
+      if (isMobileView() || prefersReducedMotion()) return;
       mouseRef.current.active = false;
     };
 
-    // Track globally on window so it follows mouse anywhere on the screen
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
+    if (!prefersReducedMotion()) {
+      window.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseleave", handleMouseLeave);
+    }
 
     // Initialize 3 Multi-Segment Robotic Arms (using FABRIK for natural fluid bends)
     // Arm 1: Bottom-Left
@@ -112,13 +119,30 @@ export default function KinematicLinkage() {
       const primaryColor = isDarkMode ? "rgba(244, 244, 245, " : "rgba(24, 24, 27, ";
       const accentColor = isDarkMode ? "rgba(244, 244, 245, " : "rgba(24, 24, 27, ";
 
-      // Interpolate mouse
+      // Interpolate target point
       const mouse = mouseRef.current;
-      if (mouse.active) {
+      const mobile = isMobileView();
+      const reducedMotion = prefersReducedMotion();
+
+      if (reducedMotion) {
+        mouse.active = false;
+        mouse.x = canvas.width / 2;
+        mouse.y = canvas.height / 2;
+      } else if (mobile) {
+        mouse.active = false;
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+        const swingX = Math.min(canvas.width, canvas.height) * 0.22;
+        const swingY = Math.min(canvas.width, canvas.height) * 0.06;
+        const t = Date.now() * 0.0008;
+        const targetX = cx + Math.sin(t) * swingX;
+        const targetY = cy + Math.sin(t * 0.65) * swingY;
+        mouse.x += (targetX - mouse.x) * 0.03;
+        mouse.y += (targetY - mouse.y) * 0.03;
+      } else if (mouse.active) {
         mouse.x += (mouse.targetX - mouse.x) * 0.1;
         mouse.y += (mouse.targetY - mouse.y) * 0.1;
       } else {
-        // Orbit center of screen ambiently
         const cx = canvas.width / 2;
         const cy = canvas.height / 2;
         const radius = Math.min(canvas.width, canvas.height) * 0.15;
@@ -127,6 +151,13 @@ export default function KinematicLinkage() {
         mouse.x += (targetX - mouse.x) * 0.03;
         mouse.y += (targetY - mouse.y) * 0.03;
       }
+
+      // Content safe-zone: the centered page column. HUD text is only drawn
+      // in the side gutters so it never overlaps the hero copy.
+      const safeWidth = Math.min(1180, canvas.width * 0.94);
+      const safeLeft = (canvas.width - safeWidth) / 2;
+      const safeRight = safeLeft + safeWidth;
+      const inGutter = (x) => x < safeLeft || x > safeRight;
 
       // Draw faint encoder background grid
       ctx.strokeStyle = isDarkMode ? "rgba(255, 255, 255, 0.012)" : "rgba(0, 0, 0, 0.012)";
@@ -301,53 +332,38 @@ export default function KinematicLinkage() {
         ctx.moveTo(tip.x, tip.y - 12);
         ctx.lineTo(tip.x, tip.y + 12);
         ctx.stroke();
-
-        // 5. Draw live multi-angle HUD readout (Recruiter wow factor!)
-        if (mouse.active && targetDist < totalLength + 100) {
-          ctx.fillStyle = `${armColor}0.65)`;
-          ctx.font = "8px monospace";
-
-          // Calculate joint relative angles
-          const angles = [];
-          for (let i = 0; i < numJoints; i++) {
-            const p0 = pts[i];
-            const p1 = pts[i + 1];
-            let ang = Math.atan2(p1.y - p0.y, p1.x - p0.x) * (180 / Math.PI);
-            if (ang < 0) ang += 360;
-            angles.push(ang.toFixed(0));
-          }
-
-          let textX = tip.x + 20;
-          let textY = tip.y - 10;
-
-          // Adjust HUD placement quadrant to prevent overlaps
-          if (arm.id === "bottom-right") {
-            textX = tip.x - 125;
-          } else if (arm.id === "top-center") {
-            textY = tip.y + 24;
-          }
-
-          ctx.fillText(`[${arm.label}]`, textX, textY);
-          ctx.fillText(`θ: [${angles.join("°, ")}°]`, textX, textY + 10);
-          ctx.fillText(`EFF: [${tip.x.toFixed(0)}, ${tip.y.toFixed(0)}]`, textX, textY + 20);
-        }
       });
 
-      // 6. Draw central cursor coordinate tag
-      if (mouse.active) {
+      // Draw cursor coordinate tag — only when the cursor is in a gutter
+      if (!reducedMotion && mouse.active && inGutter(mouse.x)) {
         ctx.fillStyle = `${accentColor}0.85)`;
         ctx.font = "9px monospace";
-        ctx.fillText(`CTRL_TARGET: [${mouse.x.toFixed(0)}, ${mouse.y.toFixed(0)}]`, mouse.x + 18, mouse.y - 18);
+        const onLeft = mouse.x <= safeLeft;
+        const tagX = onLeft ? mouse.x - 150 : mouse.x + 18;
+        ctx.fillText(`CTRL_TARGET: [${mouse.x.toFixed(0)}, ${mouse.y.toFixed(0)}]`, tagX, mouse.y - 18);
       }
+
+      if (reducedMotion) return;
 
       animationFrameId = requestAnimationFrame(draw);
     };
 
     draw();
 
+    const onResizeStatic = () => {
+      resizeCanvas();
+      if (prefersReducedMotion()) draw();
+    };
+
+    if (prefersReducedMotion()) {
+      window.removeEventListener("resize", resizeCanvas);
+      window.addEventListener("resize", onResizeStatic);
+    }
+
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", onResizeStatic);
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
@@ -357,6 +373,7 @@ export default function KinematicLinkage() {
     <canvas
       ref={canvasRef}
       className="kinematic-canvas"
+      aria-hidden="true"
       style={{
         position: "fixed",
         top: 0,
