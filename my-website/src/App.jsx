@@ -20,6 +20,14 @@ function App() {
     return () => window.removeEventListener('popstate', onPop)
   }, [])
 
+  useEffect(() => {
+    const page = path === '/' ? 'home' : path.replace(/^\//, '')
+    document.body.dataset.page = page
+    return () => {
+      delete document.body.dataset.page
+    }
+  }, [path])
+
   const navigate = (to) => {
     if (to === path) return
     window.history.pushState({}, '', to)

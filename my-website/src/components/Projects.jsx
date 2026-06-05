@@ -1,10 +1,10 @@
 import { useRef } from "react";
-import sortingRobotImg from "../assets/project_sorting_robot.png";
-import erpDocsImg from "../assets/project_erp_docs.png";
-import vexNotebookImg from "../assets/project_vex_notebook.png";
+import stabiliKneeImg from "../assets/StabiliKnee.jpg";
+import pageNavigatorImg from "../assets/Page Navigator.png";
+import pokerBotImg from "../assets/Poker Robot.jpeg";
 
 import { FaGithub } from "react-icons/fa";
-import { ExternalLink, Trophy, Zap, Target } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Trophy, Zap, Target } from "lucide-react";
 
 import { useTilt } from "../hooks/useTilt";
 import { useScrollReveal } from "../hooks/useScrollReveal";
@@ -27,6 +27,10 @@ const BAR_COLORS = {
   Mechanical: "#78716c",
 };
 
+function getPrimaryUrl(project) {
+  return project.live ?? project.github ?? null;
+}
+
 const projects = [
   {
     id: 1,
@@ -43,7 +47,7 @@ const projects = [
       { name: "IMU", color: BAR_COLORS.IMU },
     ],
     tags: ["Embedded Systems", "Arduino", "IMU", "Sensor Integration"],
-    image: sortingRobotImg,
+    image: stabiliKneeImg,
     github: "https://github.com/ShivamJKhatri/StabiliKnee",
     live: "https://devpost.com/software/stabiliknee",
   },
@@ -59,7 +63,7 @@ const projects = [
       { name: "HTML", pct: 5.1, color: BAR_COLORS.HTML },
     ],
     tags: ["Javascript", "DOM Manipulation", "API Integration", "AI"],
-    image: erpDocsImg,
+    image: pageNavigatorImg,
     github: "https://github.com/ShivamJKhatri/learn-ai",
     live: null,
   },
@@ -75,7 +79,7 @@ const projects = [
       { name: "Mechanical", color: BAR_COLORS.Mechanical },
     ],
     tags: ["Sensor Integration", "Firmware", "Documentation", "Mechanical", "Strategy"],
-    image: vexNotebookImg,
+    image: pokerBotImg,
     github: null,
     live: null,
   },
@@ -147,12 +151,30 @@ function AchievementBadge({ achievement }) {
 
 function ProjectCard({ project, index }) {
   const cardRef = useRef(null);
+  const primaryUrl = getPrimaryUrl(project);
   const { style: tiltStyle, spotStyle, handleMove, handleLeave } = useTilt(cardRef, {
     maxDeg: 10,
     maxShadow: 20,
     scale: 1.03,
   });
   const { ref: revealRef, visible } = useScrollReveal();
+
+  const openPrimary = () => {
+    if (primaryUrl) window.open(primaryUrl, "_blank", "noopener,noreferrer");
+  };
+
+  const handleCardClick = (e) => {
+    if (e.target.closest("a, button")) return;
+    openPrimary();
+  };
+
+  const handleCardKeyDown = (e) => {
+    if (!primaryUrl) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openPrimary();
+    }
+  };
 
   return (
     <div
@@ -162,9 +184,13 @@ function ProjectCard({ project, index }) {
     >
       <article
         ref={cardRef}
-        className="proj-card"
+        className={`proj-card${primaryUrl ? " proj-card--clickable" : ""}`}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
+        onClick={handleCardClick}
+        onKeyDown={handleCardKeyDown}
+        tabIndex={primaryUrl ? 0 : undefined}
+        aria-label={primaryUrl ? `View project: ${project.title}. Opens in a new tab.` : undefined}
         style={tiltStyle}
       >
         <div className="proj-card-spotlight" style={spotStyle} />
@@ -193,17 +219,42 @@ function ProjectCard({ project, index }) {
                 </span>
               ))}
             </div>
-            <div className="proj-card-links">
-              {project.github && (
-                <a href={project.github} aria-label="GitHub" className="proj-card-link">
-                  <FaGithub size={16} />
+            <div className="proj-card-actions">
+              {primaryUrl && (
+                <a
+                  href={primaryUrl}
+                  className="proj-card-cta"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View project
+                  <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
                 </a>
               )}
-              {project.live && (
-                <a href={project.live} aria-label="Live project" className="proj-card-link">
-                  <ExternalLink size={16} strokeWidth={1.5} />
-                </a>
-              )}
+              <div className="proj-card-links">
+                {project.github && (
+                  <a
+                    href={project.github}
+                    aria-label={`${project.title} on GitHub`}
+                    className="proj-card-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaGithub size={16} />
+                  </a>
+                )}
+                {project.live && (
+                  <a
+                    href={project.live}
+                    aria-label={`${project.title} live demo`}
+                    className="proj-card-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink size={16} strokeWidth={1.5} />
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>

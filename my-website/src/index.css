@@ -751,3 +751,17 @@ code {
   }
 }
 
+/* Mid-width: sidebar only on home; gutter there so content doesn't overlap */
+@media (min-width: 769px) and (max-width: 1280px) {
+  body[data-page="projects"] .sidebar,
+  body[data-page="experiences"] .sidebar,
+  body[data-page="contact"] .sidebar {
+    display: none;
+  }
+
+  body[data-page="home"] {
+    padding-left: 66px;
+    box-sizing: border-box;
+  }
+}
+
