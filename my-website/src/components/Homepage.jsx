@@ -14,10 +14,6 @@ export default function Homepage() {
 
   return (
     <div className="home-viewport-wrapper" style={{ position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
-      {/* Premium 3D LiDAR Scanner Background (Preserved but commented out) */}
-      {/* <LidarScanner /> */}
-
-      {/* Live 3D-styled Robotic Kinematic Linkage Background */}
       <KinematicLinkage />
 
       <main className={`home-container ${visible ? "home-container--visible" : ""}`}>
@@ -45,7 +41,12 @@ export default function Homepage() {
         <a href="/projects" className="home-btn home-btn--primary">
           View my work
         </a>
-        <a href={Resume} download className="home-btn home-btn--outline" aria-label="Download resume PDF">
+        <a
+          href={Resume}
+          download="Shivam Khatri - Resume.pdf"
+          className="home-btn home-btn--outline"
+          aria-label="Download resume PDF"
+        >
           <Download size={16} strokeWidth={2} className="home-btn-icon" />
           Resume
         </a>

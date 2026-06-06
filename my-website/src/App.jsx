@@ -5,7 +5,6 @@ import Projects from './components/Projects.jsx'
 import Experiences from './components/Experiences.jsx'
 import Contact from './components/Contact.jsx'
 import Sidebar from './components/Sidebar.jsx'
-import SplineRobot from './SplineRobot.jsx'
 import { useState, useEffect } from 'react'
 import { usePageMeta } from './hooks/usePageMeta.js'
 
@@ -47,7 +46,6 @@ function App() {
         {path === '/contact' && <Contact />}
       </div>
       <Sidebar />
-      {/* <SplineRobot /> */}
       
       {/* <button className="sticky-ai-cta" aria-label="Ask my AI">
         <span className="sticky-ai-sparkle">✨</span> Ask my AI something!

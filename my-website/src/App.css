@@ -240,23 +240,6 @@
   transition: transform 0.08s ease;
 }
 
-/* Spline robot container — full-viewport square to keep coordinates uniform */
-.TrackingRobot {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vmax;
-  height: 100vmax;
-  z-index: 0;
-}
-
-.TrackingRobot canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
-}
-
 /* ─── Projects Section ─── */
 
 .proj-section {

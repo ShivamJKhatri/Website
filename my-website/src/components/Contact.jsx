@@ -138,10 +138,8 @@ export default function Contact() {
         {/* Download Resume Button */}
         <a
           href={resumePdf}
-          download
+          download="Shivam Khatri - Resume.pdf"
           className="contact-resume-btn"
-          target="_blank"
-          rel="noreferrer"
         >
           <Download size={18} strokeWidth={2} className="contact-resume-icon" />
           Download resume
