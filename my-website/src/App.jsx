@@ -8,6 +8,7 @@ import Sidebar from './components/Sidebar.jsx'
 import SplineRobot from './SplineRobot.jsx'
 import { useState, useEffect } from 'react'
 import { usePageMeta } from './hooks/usePageMeta.js'
+import { Analytics } from '@vercel/analytics/react'
 
 function App() {
   const [path, setPath] = useState(window.location.pathname || '/')
@@ -52,6 +53,7 @@ function App() {
       {/* <button className="sticky-ai-cta" aria-label="Ask my AI">
         <span className="sticky-ai-sparkle">✨</span> Ask my AI something!
       </button> */}
+      <Analytics />
     </>
   )
 }
