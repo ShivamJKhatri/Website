@@ -135,8 +135,13 @@ body {
   .contact-inner,
   .navbar-backdrop,
   .navbar-links,
-  .navbar-toggle {
+  .navbar-toggle,
+  .navbar-panel {
     transition: none;
+  }
+
+  .navbar-panel {
+    animation: none;
   }
 }
 
@@ -215,6 +220,25 @@ code {
 }
 
 .navbar-toggle {
+  display: none;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-panel {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-panel-header {
+  display: none;
+}
+
+.navbar-toggle--menu,
+.navbar-toggle--close {
   display: none;
 }
 
@@ -335,6 +359,74 @@ code {
     z-index: 200;
   }
 
+  .navbar-shell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .navbar-toggle--menu {
+    display: inline-flex;
+    position: relative;
+    z-index: 1;
+  }
+
+  .navbar--open .navbar-toggle--menu {
+    display: none;
+  }
+
+  .navbar-panel {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    padding: 6px 12px 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    box-shadow: var(--shadow);
+  }
+
+  .navbar--open .navbar-panel {
+    display: flex;
+    animation: navbar-dropdown-in 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navbar--open .navbar-panel-header {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 2px;
+    padding: 0;
+  }
+
+  .navbar-toggle--close {
+    display: inline-flex;
+  }
+
+  .navbar-panel .navbar-toggle {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .navbar-panel .navbar-toggle:hover {
+    background: var(--accent-bg);
+    border-radius: 10px;
+  }
+
   .navbar-toggle {
     display: inline-flex;
     align-items: center;
@@ -352,14 +444,7 @@ code {
     box-shadow: var(--shadow);
     transition:
       background-color 0.2s ease,
-      border-color 0.2s ease,
-      transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .navbar--open .navbar-toggle {
-    border-color: var(--accent-border);
-    background: var(--accent-bg);
-    transform: rotate(90deg);
+      border-color 0.2s ease;
   }
 
   .navbar-toggle:hover {
@@ -396,44 +481,69 @@ code {
     pointer-events: auto;
   }
 
-  .navbar-links {
+  @keyframes navbar-dropdown-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .navbar--open .navbar-panel .navbar-links {
     display: flex;
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    left: 0;
     flex-direction: column;
     align-items: stretch;
     gap: 4px;
-    padding: 8px;
-    border-radius: 16px;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateY(-10px) scale(0.97);
-    transform-origin: top right;
-    transition:
-      opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-      visibility 0.32s;
-  }
-
-  .navbar--open .navbar-links {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateY(0) scale(1);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: none;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-sizing: border-box;
   }
 
   .navbar-links li {
     width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   .navbar-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    min-height: 44px;
+    padding: 12px 0;
     text-align: center;
-    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 500;
     border-radius: 10px;
+    opacity: 0.72;
+    box-sizing: border-box;
+    color: var(--text-h);
+    text-decoration: none;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+  }
+
+  .navbar-links a:hover {
+    opacity: 1;
+    background: var(--accent-bg);
+  }
+
+  .navbar-panel .navbar-links a.is-active {
+    opacity: 0.72;
+    background: transparent;
+    box-shadow: none;
+    color: var(--text-h);
   }
 
   .sticky-ai-cta {

@@ -28,6 +28,10 @@ function App() {
     }
   }, [path])
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [path])
+
   const navigate = (to) => {
     if (to === path) return
     window.history.pushState({}, '', to)
