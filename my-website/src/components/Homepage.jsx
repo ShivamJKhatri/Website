@@ -75,10 +75,8 @@ export default function Homepage() {
       <div className="home-details-section">
         <div className="home-intro-col">
           <p>
-            I'm a builder focused on the intersection of mechanical systems and
-            software. Currently interning at Yama Vans, turning trade knowledge
-            into formal engineering documentation and feeding it into a live ERP
-            system.
+            I'm Shivam, a Waterloo Eng student interested in the intersection of mechanical systems and software. Whether you want to connect, collaborate, or just talk about something interesting, feel free to reach out.
+ 
           </p>
         </div>
         <div className="home-skills-col">

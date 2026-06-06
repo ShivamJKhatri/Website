@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import stabiliKneeImg from "../assets/StabiliKnee.jpg";
 import pageNavigatorImg from "../assets/Page Navigator.png";
 import pokerBotImg from "../assets/Poker Robot.jpeg";
@@ -152,6 +152,7 @@ function AchievementBadge({ achievement }) {
 function ProjectCard({ project, index }) {
   const cardRef = useRef(null);
   const primaryUrl = getPrimaryUrl(project);
+  const [isMobile, setIsMobile] = useState(false);
   const { style: tiltStyle, spotStyle, handleMove, handleLeave } = useTilt(cardRef, {
     maxDeg: 10,
     maxShadow: 20,
@@ -159,17 +160,28 @@ function ProjectCard({ project, index }) {
   });
   const { ref: revealRef, visible } = useScrollReveal();
 
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const cardClickable = Boolean(primaryUrl && !isMobile);
+
   const openPrimary = () => {
     if (primaryUrl) window.open(primaryUrl, "_blank", "noopener,noreferrer");
   };
 
   const handleCardClick = (e) => {
+    if (!cardClickable) return;
     if (e.target.closest("a, button")) return;
     openPrimary();
   };
 
   const handleCardKeyDown = (e) => {
-    if (!primaryUrl) return;
+    if (!cardClickable) return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       openPrimary();
@@ -184,13 +196,13 @@ function ProjectCard({ project, index }) {
     >
       <article
         ref={cardRef}
-        className={`proj-card${primaryUrl ? " proj-card--clickable" : ""}`}
+        className={`proj-card${cardClickable ? " proj-card--clickable" : ""}`}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
         onClick={handleCardClick}
         onKeyDown={handleCardKeyDown}
-        tabIndex={primaryUrl ? 0 : undefined}
-        aria-label={primaryUrl ? `View project: ${project.title}. Opens in a new tab.` : undefined}
+        tabIndex={cardClickable ? 0 : undefined}
+        aria-label={cardClickable ? `View project: ${project.title}. Opens in a new tab.` : undefined}
         style={tiltStyle}
       >
         <div className="proj-card-spotlight" style={spotStyle} />
