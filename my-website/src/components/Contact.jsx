@@ -5,7 +5,7 @@ import { FaLinkedinIn, FaGithub, FaRegEnvelope } from "react-icons/fa";
 import { useTilt } from "../hooks/useTilt";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 
-import resumePdf from "../assets/Resume.pdf";
+import { downloadResume, RESUME_PATH, RESUME_FILENAME } from "../utils/downloadResume.js";
 
 
 
@@ -137,8 +137,9 @@ export default function Contact() {
 
         {/* Download Resume Button */}
         <a
-          href={resumePdf}
-          download="Shivam Khatri - Resume.pdf"
+          href={RESUME_PATH}
+          download={RESUME_FILENAME}
+          onClick={downloadResume}
           className="contact-resume-btn"
         >
           <Download size={18} strokeWidth={2} className="contact-resume-icon" />

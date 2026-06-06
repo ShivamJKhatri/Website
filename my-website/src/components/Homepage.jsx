@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import KinematicLinkage from "./KinematicLinkage.jsx";
-import Resume from "../assets/Resume.pdf";
 import { Download, Briefcase, MapPin, GraduationCap } from "lucide-react";
+import { downloadResume, RESUME_PATH, RESUME_FILENAME } from "../utils/downloadResume.js";
 
 export default function Homepage() {
   const [visible, setVisible] = useState(false);
@@ -42,8 +42,9 @@ export default function Homepage() {
           View my work
         </a>
         <a
-          href={Resume}
-          download="Shivam Khatri - Resume.pdf"
+          href={RESUME_PATH}
+          download={RESUME_FILENAME}
+          onClick={downloadResume}
           className="home-btn home-btn--outline"
           aria-label="Download resume PDF"
         >
