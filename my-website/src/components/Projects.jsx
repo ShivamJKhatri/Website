@@ -8,6 +8,7 @@ import { ArrowUpRight, ExternalLink, Trophy, Zap, Target } from "lucide-react";
 
 import { useTilt } from "../hooks/useTilt";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import Tooltip from "./Tooltip.jsx";
 
 const ACHIEVEMENT_ICONS = {
   trophy: Trophy,
@@ -188,12 +189,7 @@ function ProjectCard({ project, index }) {
     }
   };
 
-  return (
-    <div
-      ref={revealRef}
-      className={`proj-card-wrapper ${visible ? "proj-card-wrapper--visible" : ""}`}
-      style={{ transitionDelay: `${index * 0.1}s` }}
-    >
+  const card = (
       <article
         ref={cardRef}
         className={`proj-card${cardClickable ? " proj-card--clickable" : ""}`}
@@ -233,44 +229,65 @@ function ProjectCard({ project, index }) {
             </div>
             <div className="proj-card-actions">
               {primaryUrl && (
-                <a
-                  href={primaryUrl}
-                  className="proj-card-cta"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View project
-                  <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
-                </a>
+                <Tooltip label="View project (opens in new tab)">
+                  <a
+                    href={primaryUrl}
+                    className="proj-card-cta"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View project
+                    <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
+                  </a>
+                </Tooltip>
               )}
               <div className="proj-card-links">
                 {project.github && (
-                  <a
-                    href={project.github}
-                    aria-label={`${project.title} on GitHub`}
-                    className="proj-card-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaGithub size={16} />
-                  </a>
+                  <Tooltip label="View source on GitHub">
+                    <a
+                      href={project.github}
+                      aria-label={`${project.title} on GitHub`}
+                      className="proj-card-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaGithub size={16} />
+                    </a>
+                  </Tooltip>
                 )}
                 {project.live && (
-                  <a
-                    href={project.live}
-                    aria-label={`${project.title} live demo`}
-                    className="proj-card-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink size={16} strokeWidth={1.5} />
-                  </a>
+                  <Tooltip label="View live demo">
+                    <a
+                      href={project.live}
+                      aria-label={`${project.title} live demo`}
+                      className="proj-card-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink size={16} strokeWidth={1.5} />
+                    </a>
+                  </Tooltip>
                 )}
               </div>
             </div>
           </div>
         </div>
       </article>
+  );
+
+  return (
+    <div
+      ref={revealRef}
+      className={`proj-card-wrapper ${visible ? "proj-card-wrapper--visible" : ""}`}
+      style={{ transitionDelay: `${index * 0.1}s` }}
+    >
+      {cardClickable ? (
+        <Tooltip label={`Open ${project.title} in new tab`} block>
+          {card}
+        </Tooltip>
+      ) : (
+        card
+      )}
     </div>
   );
 }

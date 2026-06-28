@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import Tooltip from "./Tooltip.jsx";
 
 const LINKS = [
   { to: "/", label: "Home" },
@@ -44,29 +45,33 @@ export default function Navbar({ navigate = () => {}, path = "/" }) {
       />
 
       <div className="navbar-shell">
-        <button
-          type="button"
-          className="navbar-toggle navbar-toggle--menu"
-          aria-expanded={open}
-          aria-controls="navbar-menu"
-          aria-label="Open menu"
-          onClick={() => setOpen(true)}
-        >
-          <Menu size={20} strokeWidth={2} aria-hidden="true" />
-        </button>
+        <Tooltip label="Open menu" side="bottom">
+          <button
+            type="button"
+            className="navbar-toggle navbar-toggle--menu"
+            aria-expanded={open}
+            aria-controls="navbar-menu"
+            aria-label="Open menu"
+            onClick={() => setOpen(true)}
+          >
+            <Menu size={20} strokeWidth={2} aria-hidden="true" />
+          </button>
+        </Tooltip>
 
         <div className="navbar-panel">
           <div className="navbar-panel-header">
-            <button
-              type="button"
-              className="navbar-toggle navbar-toggle--close"
-              aria-expanded={open}
-              aria-controls="navbar-menu"
-              aria-label="Close menu"
-              onClick={() => setOpen(false)}
-            >
-              <X size={20} strokeWidth={2} aria-hidden="true" />
-            </button>
+            <Tooltip label="Close menu" side="bottom">
+              <button
+                type="button"
+                className="navbar-toggle navbar-toggle--close"
+                aria-expanded={open}
+                aria-controls="navbar-menu"
+                aria-label="Close menu"
+                onClick={() => setOpen(false)}
+              >
+                <X size={20} strokeWidth={2} aria-hidden="true" />
+              </button>
+            </Tooltip>
           </div>
 
           <ul id="navbar-menu" className="navbar-links">
@@ -74,14 +79,16 @@ export default function Navbar({ navigate = () => {}, path = "/" }) {
               const isActive = path === link.to;
               return (
                 <li key={link.to}>
-                  <a
-                    href={link.to}
-                    onClick={(e) => go(e, link.to)}
-                    className={isActive ? "is-active" : undefined}
-                    aria-current={isActive ? "page" : undefined}
-                  >
-                    {link.label}
-                  </a>
+                  <Tooltip label={`Go to ${link.label}`} side="bottom">
+                    <a
+                      href={link.to}
+                      onClick={(e) => go(e, link.to)}
+                      className={isActive ? "is-active" : undefined}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {link.label}
+                    </a>
+                  </Tooltip>
                 </li>
               );
             })}

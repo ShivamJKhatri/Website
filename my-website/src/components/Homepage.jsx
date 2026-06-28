@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import KinematicLinkage from "./KinematicLinkage.jsx";
 import { Download, Briefcase, MapPin, GraduationCap } from "lucide-react";
 import { downloadResume, RESUME_PATH, RESUME_FILENAME } from "../utils/downloadResume.js";
+import Tooltip from "./Tooltip.jsx";
 
 export default function Homepage() {
   const [visible, setVisible] = useState(false);
@@ -38,19 +39,23 @@ export default function Homepage() {
 
       {/* 4. Call to Action Buttons */}
       <div className="home-cta-group">
-        <a href="/projects" className="home-btn home-btn--primary">
-          View my work
-        </a>
-        <a
-          href={RESUME_PATH}
-          download={RESUME_FILENAME}
-          onClick={downloadResume}
-          className="home-btn home-btn--outline"
-          aria-label="Download resume PDF"
-        >
-          <Download size={16} strokeWidth={2} className="home-btn-icon" />
-          Resume
-        </a>
+        <Tooltip label="View projects">
+          <a href="/projects" className="home-btn home-btn--primary">
+            View my work
+          </a>
+        </Tooltip>
+        <Tooltip label="Download resume (PDF)">
+          <a
+            href={RESUME_PATH}
+            download={RESUME_FILENAME}
+            onClick={downloadResume}
+            className="home-btn home-btn--outline"
+            aria-label="Download resume PDF"
+          >
+            <Download size={16} strokeWidth={2} className="home-btn-icon" />
+            Resume
+          </a>
+        </Tooltip>
       </div>
 
       {/* 5. Statistics Grid Row */}

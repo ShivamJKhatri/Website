@@ -4,6 +4,7 @@ import { FaLinkedinIn, FaGithub, FaRegEnvelope } from "react-icons/fa";
 
 import { useTilt } from "../hooks/useTilt";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import Tooltip from "./Tooltip.jsx";
 
 import { downloadResume, RESUME_PATH, RESUME_FILENAME } from "../utils/downloadResume.js";
 
@@ -51,11 +52,11 @@ export default function Contact() {
 
         {/* Contact Channels */}
         <div className="contact-channels">
-          {/* Email Card */}
-          <a 
-            href="mailto:sjkhatri182@gmail.com" 
-            className="contact-card-link-wrapper"
-          >
+          <Tooltip label="Email Shivam" block>
+            <a
+              href="mailto:sjkhatri182@gmail.com"
+              className="contact-card-link-wrapper"
+            >
             <article
               ref={emailCardRef}
               className="contact-card"
@@ -74,15 +75,16 @@ export default function Contact() {
               </div>
               <span className="contact-card-note">Replies within 24h</span>
             </article>
-          </a>
+            </a>
+          </Tooltip>
 
-          {/* LinkedIn Card */}
-          <a 
-            href="https://www.linkedin.com/in/khatri-shivam/" 
-            target="_blank" 
-            rel="noreferrer"
-            className="contact-card-link-wrapper"
-          >
+          <Tooltip label="LinkedIn profile (opens in new tab)" block>
+            <a
+              href="https://www.linkedin.com/in/khatri-shivam/"
+              target="_blank"
+              rel="noreferrer"
+              className="contact-card-link-wrapper"
+            >
             <article
               ref={linkedinCardRef}
               className="contact-card"
@@ -103,15 +105,16 @@ export default function Contact() {
                 <ArrowUpRight size={18} strokeWidth={1.75} />
               </div>
             </article>
-          </a>
+            </a>
+          </Tooltip>
 
-          {/* GitHub Card */}
-          <a 
-            href="https://github.com/ShivamJKhatri" 
-            target="_blank" 
-            rel="noreferrer"
-            className="contact-card-link-wrapper"
-          >
+          <Tooltip label="GitHub profile (opens in new tab)" block>
+            <a
+              href="https://github.com/ShivamJKhatri"
+              target="_blank"
+              rel="noreferrer"
+              className="contact-card-link-wrapper"
+            >
             <article
               ref={githubCardRef}
               className="contact-card"
@@ -132,19 +135,22 @@ export default function Contact() {
                 <ArrowUpRight size={18} strokeWidth={1.75} />
               </div>
             </article>
-          </a>
+            </a>
+          </Tooltip>
         </div>
 
-        {/* Download Resume Button */}
-        <a
-          href={RESUME_PATH}
-          download={RESUME_FILENAME}
-          onClick={downloadResume}
-          className="contact-resume-btn"
-        >
-          <Download size={18} strokeWidth={2} className="contact-resume-icon" />
-          Download resume
-        </a>
+        <Tooltip label="Download resume (PDF)">
+          <a
+            href={RESUME_PATH}
+            download={RESUME_FILENAME}
+            onClick={downloadResume}
+            className="contact-resume-btn"
+            aria-label="Download resume PDF"
+          >
+            <Download size={18} strokeWidth={2} className="contact-resume-icon" />
+            Download resume
+          </a>
+        </Tooltip>
       </div>
     </section>
   );
