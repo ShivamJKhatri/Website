@@ -448,7 +448,7 @@ code {
   50% { transform: translateY(-2.5px) scale(1.1); }
 }
 
-/* Responsive navbar — hamburger menu on mobile */
+/* Responsive navbar - hamburger menu on mobile */
 @media (max-width: 768px) {
   .navbar {
     position: sticky;

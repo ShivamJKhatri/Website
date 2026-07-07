@@ -1,10 +1,11 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import stabiliKneeImg from "../assets/StabiliKnee.jpg";
 import pageNavigatorImg from "../assets/Page Navigator.png";
 import pokerBotImg from "../assets/Poker Robot.jpeg";
+import lettuceEatsImg from "../assets/LettuceEats.png";
 
 import { FaGithub } from "react-icons/fa";
-import { ArrowUpRight, ExternalLink, Trophy, Zap, Target } from "lucide-react";
+import { ExternalLink, Trophy, Zap, Target } from "lucide-react";
 
 import { useTilt } from "../hooks/useTilt";
 import { useScrollReveal } from "../hooks/useScrollReveal";
@@ -16,7 +17,7 @@ const ACHIEVEMENT_ICONS = {
   target: Target,
 };
 
-/* One color per label — no overlap between language % bars and stack bars */
+/* One color per label - no overlap between language % bars and stack bars */
 const BAR_COLORS = {
   JavaScript: "#f0db4f",
   CSS: "#2965f1",
@@ -26,13 +27,29 @@ const BAR_COLORS = {
   IMU: "#a855f7",
   Firmware: "#f97316",
   Mechanical: "#78716c",
+  "React/TypeScript": "#61dafb",
+  "Node.js": "#68a063",
+  SQL: "#336791",
 };
 
-function getPrimaryUrl(project) {
-  return project.live ?? project.github ?? null;
-}
-
 const projects = [
+  {
+    id: 4,
+    title: "LettuceEats - AI Recipe-to-Cart App",
+    description:
+      "Built a full-stack app that turns any recipe link or photo into a priced shopping list. AI extracts ingredients from unstructured recipes and matches them to real store products, while a two-tier pipeline tries free parsing first and only calls Bedrock's AI when needed. Multiple recipes merge into one smart cart that avoids duplicate items, and a pantry tab trims staples you already have.",
+    achievement: { icon: "zap", label: "60% lower AI costs" },
+    languages: [
+      { name: "TypeScript", pct: 61, color: BAR_COLORS["React/TypeScript"] },
+      { name: "CSS", pct: 22, color: BAR_COLORS.CSS },
+      { name: "HTML", pct: 9, color: BAR_COLORS.HTML },
+      { name: "JavaScript", pct: 8, color: BAR_COLORS.JavaScript },
+    ],
+    tags: ["React", "TypeScript", "Vercel", "AWS Bedrock", "PostgreSQL", "Drizzle ORM"],
+    image: lettuceEatsImg,
+    github: "https://github.com/ShivamJKhatri/LettuceEats",
+    live: "https://devpost.com/software/lettuceeat-pql9nr",
+  },
   {
     id: 1,
     title: "StabiliKnee - Active Knee Brace",
@@ -150,10 +167,61 @@ function AchievementBadge({ achievement }) {
   );
 }
 
+function ProjectDescription({ text }) {
+  const descRef = useRef(null);
+  const [expanded, setExpanded] = useState(false);
+  const [canExpand, setCanExpand] = useState(false);
+
+  const checkTruncation = useCallback(() => {
+    const el = descRef.current;
+    if (!el) return;
+
+    if (expanded) {
+      setCanExpand(true);
+      return;
+    }
+
+    setCanExpand(el.scrollHeight > el.clientHeight + 1);
+  }, [expanded]);
+
+  useEffect(() => {
+    checkTruncation();
+
+    const el = descRef.current;
+    if (!el) return undefined;
+
+    const observer = new ResizeObserver(checkTruncation);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [checkTruncation, text]);
+
+  return (
+    <div className="proj-card-desc-wrap">
+      <p
+        ref={descRef}
+        className={`proj-card-desc${expanded ? " proj-card-desc--expanded" : ""}`}
+      >
+        {text}
+      </p>
+      {canExpand && (
+        <button
+          type="button"
+          className="proj-card-desc-toggle"
+          onClick={(e) => {
+            e.stopPropagation();
+            setExpanded((value) => !value);
+          }}
+          aria-expanded={expanded}
+        >
+          {expanded ? "Show less" : "Show more"}
+        </button>
+      )}
+    </div>
+  );
+}
+
 function ProjectCard({ project, index }) {
   const cardRef = useRef(null);
-  const primaryUrl = getPrimaryUrl(project);
-  const [isMobile, setIsMobile] = useState(false);
   const { style: tiltStyle, spotStyle, handleMove, handleLeave } = useTilt(cardRef, {
     maxDeg: 10,
     maxShadow: 20,
@@ -161,44 +229,17 @@ function ProjectCard({ project, index }) {
   });
   const { ref: revealRef, visible } = useScrollReveal();
 
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px)");
-    const update = () => setIsMobile(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  const cardClickable = Boolean(primaryUrl && !isMobile);
-
-  const openPrimary = () => {
-    if (primaryUrl) window.open(primaryUrl, "_blank", "noopener,noreferrer");
-  };
-
-  const handleCardClick = (e) => {
-    if (!cardClickable) return;
-    if (e.target.closest("a, button")) return;
-    openPrimary();
-  };
-
-  const handleCardKeyDown = (e) => {
-    if (!cardClickable) return;
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      openPrimary();
-    }
-  };
-
-  const card = (
+  return (
+    <div
+      ref={revealRef}
+      className={`proj-card-wrapper ${visible ? "proj-card-wrapper--visible" : ""}`}
+      style={{ transitionDelay: `${index * 0.1}s` }}
+    >
       <article
         ref={cardRef}
-        className={`proj-card${cardClickable ? " proj-card--clickable" : ""}`}
+        className="proj-card"
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
-        onClick={handleCardClick}
-        onKeyDown={handleCardKeyDown}
-        tabIndex={cardClickable ? 0 : undefined}
-        aria-label={cardClickable ? `View project: ${project.title}. Opens in a new tab.` : undefined}
         style={tiltStyle}
       >
         <div className="proj-card-spotlight" style={spotStyle} />
@@ -214,7 +255,7 @@ function ProjectCard({ project, index }) {
             <AchievementBadge achievement={project.achievement} />
           </div>
 
-          <p className="proj-card-desc">{project.description}</p>
+          <ProjectDescription text={project.description} />
 
           <StackBar stack={project.stack} />
           <LanguageBar languages={project.languages} />
@@ -228,19 +269,6 @@ function ProjectCard({ project, index }) {
               ))}
             </div>
             <div className="proj-card-actions">
-              {primaryUrl && (
-                <Tooltip label="View project (opens in new tab)">
-                  <a
-                    href={primaryUrl}
-                    className="proj-card-cta"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View project
-                    <ArrowUpRight size={14} strokeWidth={2} aria-hidden="true" />
-                  </a>
-                </Tooltip>
-              )}
               <div className="proj-card-links">
                 {project.github && (
                   <Tooltip label="View source on GitHub">
@@ -273,21 +301,6 @@ function ProjectCard({ project, index }) {
           </div>
         </div>
       </article>
-  );
-
-  return (
-    <div
-      ref={revealRef}
-      className={`proj-card-wrapper ${visible ? "proj-card-wrapper--visible" : ""}`}
-      style={{ transitionDelay: `${index * 0.1}s` }}
-    >
-      {cardClickable ? (
-        <Tooltip label={`Open ${project.title} in new tab`} block>
-          {card}
-        </Tooltip>
-      ) : (
-        card
-      )}
     </div>
   );
 }

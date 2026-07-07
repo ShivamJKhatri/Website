@@ -12,7 +12,7 @@ const PAGE_META = {
   "/projects": {
     title: `Projects · ${SITE_NAME}`,
     description:
-      "Selected mechatronics, robotics, and software projects — from active knee braces to autonomous systems.",
+      "Selected mechatronics, robotics, and software projects - from active knee braces to autonomous systems.",
   },
   "/experiences": {
     title: `Experience · ${SITE_NAME}`,

@@ -334,7 +334,7 @@ export default function KinematicLinkage() {
         ctx.stroke();
       });
 
-      // Draw cursor coordinate tag — only when the cursor is in a gutter
+      // Draw cursor coordinate tag - only when the cursor is in a gutter
       if (!reducedMotion && mouse.active && inGutter(mouse.x)) {
         ctx.fillStyle = `${accentColor}0.85)`;
         ctx.font = "9px monospace";

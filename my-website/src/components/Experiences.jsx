@@ -5,11 +5,26 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const experiences = [
   {
+    id: 4,
+    role: "Engineering Intern",
+    company: "Yama Vans",
+    location: "Calgary, AB",
+    period: "May 2026 - Aug 2026",
+    description: [
+      "Built a website used by all 28 employees to track safety training, cutting the time spent managing it by 40%",
+      "Fixed broken 3D design files that were blocking production, cutting file size by 60% and getting the cutting machine working again",
+      "Set up automatic nightly backups of the company's entire CAD file system to the cloud, so years of design work can't be lost to a hardware failure",
+      "Wrote 20+ step-by-step instruction guides for building parts of custom vans, so someone with zero experience can follow along and do the job correctly on day one",
+      "Wrote automation programs that read through documents automatically and pull out the information needed for production, saving the team 10+ hours each month",
+    ],
+    tags: ["SolidWorks", "TypeScript", "React", "Python", "Documentation", "Automation"],
+  },
+  {
     id: 1,
     role: "Firmware Engineer",
     company: "Electrium Mobility",
     location: "Waterloo, ON",
-    period: "Sep 2025 — Jan 2026",
+    period: "Sep 2025 - Jan 2026",
     description: [
       "Created an electric bike that used a custom ESP32-based control board to interface with a VESC motor controller, enabling precise speed and torque control for a smooth riding experience",
       "Bridged a UART integration layer between ESP32 and VESC, enabling control of 10+ motor parameters",
@@ -22,7 +37,7 @@ const experiences = [
     role: "Front End Developer",
     company: "STEM Unites",
     location: null,
-    period: "May 2025 — Aug 2025",
+    period: "May 2025 - Aug 2025",
     description: [
       "Created a website to showcase the work of STEM Unites and increase thier reach to students across the world",
       "Increased member engagement by 25% by redesigning the front end and implementing optimized components using JavaScript, HTML, and CSS while using Git version control to allow for seamless collaboration",
@@ -35,7 +50,7 @@ const experiences = [
     role: "Engineering Team Lead",
     company: "VEX Robotics",
     location: null,
-    period: "Sep 2022 — Apr 2025",
+    period: "Sep 2022 - Apr 2025",
     description: [
       "Created a robot that was capable of autonomously navigating a field, picking up objects, and placing them in designated zones using a combination of mechanical design and sensor integration",
       "Increased scoring by 14% by designing and optimizing motion algorithms using PID and iterative testing cycles",
