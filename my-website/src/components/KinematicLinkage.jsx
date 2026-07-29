@@ -152,13 +152,6 @@ export default function KinematicLinkage() {
         mouse.y += (targetY - mouse.y) * 0.03;
       }
 
-      // Content safe-zone: the centered page column. HUD text is only drawn
-      // in the side gutters so it never overlaps the hero copy.
-      const safeWidth = Math.min(1180, canvas.width * 0.94);
-      const safeLeft = (canvas.width - safeWidth) / 2;
-      const safeRight = safeLeft + safeWidth;
-      const inGutter = (x) => x < safeLeft || x > safeRight;
-
       // Draw faint encoder background grid
       ctx.strokeStyle = isDarkMode ? "rgba(255, 255, 255, 0.012)" : "rgba(0, 0, 0, 0.012)";
       ctx.lineWidth = 1;
@@ -333,15 +326,6 @@ export default function KinematicLinkage() {
         ctx.lineTo(tip.x, tip.y + 12);
         ctx.stroke();
       });
-
-      // Draw cursor coordinate tag - only when the cursor is in a gutter
-      if (!reducedMotion && mouse.active && inGutter(mouse.x)) {
-        ctx.fillStyle = `${accentColor}0.85)`;
-        ctx.font = "9px monospace";
-        const onLeft = mouse.x <= safeLeft;
-        const tagX = onLeft ? mouse.x - 150 : mouse.x + 18;
-        ctx.fillText(`CTRL_TARGET: [${mouse.x.toFixed(0)}, ${mouse.y.toFixed(0)}]`, tagX, mouse.y - 18);
-      }
 
       if (reducedMotion) return;
 
