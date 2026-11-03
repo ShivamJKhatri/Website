@@ -34,23 +34,6 @@ const BAR_COLORS = {
 
 const projects = [
   {
-    id: 4,
-    title: "LettuceEats - AI Recipe-to-Cart App",
-    description:
-      "Built a full-stack app that turns any recipe link or photo into a priced shopping list. AI extracts ingredients from unstructured recipes and matches them to real store products, while a two-tier pipeline tries free parsing first and only calls Bedrock's AI when needed. Multiple recipes merge into one smart cart that avoids duplicate items, and a pantry tab trims staples you already have.",
-    achievement: { icon: "zap", label: "60% lower AI costs" },
-    languages: [
-      { name: "TypeScript", pct: 61, color: BAR_COLORS["React/TypeScript"] },
-      { name: "CSS", pct: 22, color: BAR_COLORS.CSS },
-      { name: "HTML", pct: 9, color: BAR_COLORS.HTML },
-      { name: "JavaScript", pct: 8, color: BAR_COLORS.JavaScript },
-    ],
-    tags: ["React", "TypeScript", "Vercel", "AWS Bedrock", "PostgreSQL", "Drizzle ORM"],
-    image: lettuceEatsImg,
-    github: "https://github.com/ShivamJKhatri/LettuceEats",
-    live: "https://devpost.com/software/lettuceeat-pql9nr",
-  },
-  {
     id: 1,
     title: "StabiliKnee - Active Knee Brace",
     description:
@@ -68,6 +51,23 @@ const projects = [
     image: stabiliKneeImg,
     github: "https://github.com/ShivamJKhatri/StabiliKnee",
     live: "https://devpost.com/software/stabiliknee",
+  },
+  {
+    id: 4,
+    title: "LettuceEats - AI Recipe-to-Cart App",
+    description:
+      "Built a full-stack app that turns any recipe link or photo into a priced shopping list. AI extracts ingredients from unstructured recipes and matches them to real store products, while a two-tier pipeline tries free parsing first and only calls Bedrock's AI when needed. Multiple recipes merge into one smart cart that avoids duplicate items, and a pantry tab trims staples you already have.",
+    achievement: { icon: "zap", label: "60% lower AI costs" },
+    languages: [
+      { name: "TypeScript", pct: 61, color: BAR_COLORS["React/TypeScript"] },
+      { name: "CSS", pct: 22, color: BAR_COLORS.CSS },
+      { name: "HTML", pct: 9, color: BAR_COLORS.HTML },
+      { name: "JavaScript", pct: 8, color: BAR_COLORS.JavaScript },
+    ],
+    tags: ["React", "TypeScript", "Vercel", "AWS Bedrock", "PostgreSQL", "Drizzle ORM"],
+    image: lettuceEatsImg,
+    github: "https://github.com/ShivamJKhatri/LettuceEats",
+    live: "https://devpost.com/software/lettuceeat-pql9nr",
   },
   {
     id: 2,
