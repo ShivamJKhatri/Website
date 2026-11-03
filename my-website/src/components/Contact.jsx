@@ -139,18 +139,31 @@ export default function Contact() {
           </Tooltip>
         </div>
 
-        <Tooltip label="Download resume (PDF)">
-          <a
-            href={RESUME_PATH}
-            download={RESUME_FILENAME}
-            onClick={downloadResume}
-            className="contact-resume-btn"
-            aria-label="Download resume PDF"
-          >
-            <Download size={18} strokeWidth={2} className="contact-resume-icon" />
-            Download resume
-          </a>
-        </Tooltip>
+        <div className="contact-resume-row">
+          <Tooltip label="Download resume (PDF)">
+            <a
+              href={RESUME_PATH}
+              download={RESUME_FILENAME}
+              onClick={downloadResume}
+              className="contact-resume-btn"
+              aria-label="Download resume PDF"
+            >
+              <Download size={18} strokeWidth={2} className="contact-resume-icon" />
+              Download resume
+            </a>
+          </Tooltip>
+          <Tooltip label="Download engineering portfolio (PDF)">
+            <a
+              href={`${import.meta.env.BASE_URL}Engineering Portfolio.pdf`}
+              download="Engineering Portfolio.pdf"
+              className="contact-resume-btn"
+              aria-label="Download engineering portfolio PDF"
+            >
+              <Download size={18} strokeWidth={2} className="contact-resume-icon" />
+              Download engineering portfolio
+            </a>
+          </Tooltip>
+        </div>
       </div>
     </section>
   );

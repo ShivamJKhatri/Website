@@ -1236,6 +1236,25 @@
   transform: translateZ(20px) translate(2px, -2px);
 }
 
+.contact-resume-row {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.contact-resume-row > .tooltip-wrap {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  .contact-resume-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Download Resume Outline Button */
 .contact-resume-btn {
   width: 100%;

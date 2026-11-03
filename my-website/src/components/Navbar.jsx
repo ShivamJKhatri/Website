@@ -4,8 +4,8 @@ import Tooltip from "./Tooltip.jsx";
 
 const LINKS = [
   { to: "/", label: "Home" },
-  { to: "/projects", label: "Projects" },
   { to: "/experiences", label: "Experiences" },
+  { to: "/projects", label: "Projects" },
   { to: "/contact", label: "Contact" },
 ];
 

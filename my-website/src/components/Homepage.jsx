@@ -89,12 +89,15 @@ export default function Homepage() {
         <div className="home-skills-col">
           <div className="home-skills-grid">
             <span className="home-skill-tag">Python</span>
-            <span className="home-skill-tag">React</span>
             <span className="home-skill-tag">C++</span>
             <span className="home-skill-tag">Javascript</span>
-            <span className="home-skill-tag">HTML/CSS</span>
             <span className="home-skill-tag">Solidworks</span>
+            <span className="home-skill-tag">C</span>
+            <span className="home-skill-tag">STM32</span>
+            <span className="home-skill-tag">ESP32</span>
+            <span className="home-skill-tag">UART/SPI/I2C</span>
             <span className="home-skill-tag">Embedded Systems</span>
+            <span className="home-skill-tag">React</span>
 
           </div>
         </div>
@@ -114,7 +117,7 @@ export default function Homepage() {
 
         <div className="home-footer-segment">
           <MapPin size={14} strokeWidth={1.75} className="home-footer-icon" />
-          <span>Calgary, AB</span>
+          <span>Waterloo, ON</span>
         </div>
 
         <div className="home-footer-segment">

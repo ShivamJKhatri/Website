@@ -5,6 +5,20 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const experiences = [
   {
+    id: 5,
+    role: "Firmware Engineer",
+    company: "WATonomous",
+    location: "Waterloo, ON",
+    period: "Sept 2026 - Present",
+    description: [
+      "Developing field-oriented control (FOC) firmware for position control of humanoid joint actuators on STM32",
+      "Achieved 95% of navigation goals collision-free by building a ROS 2/C++ stack from lidar input to motor commands",
+      "Reduced obstacles forgotten mid-drive by 63% with an occupancy map that retains obstacles after leaving lidar view",
+      "Built lidar perception that turns each 2D scan into a 40,000-cell occupancy grid with graded obstacle safety margins",
+    ],
+    tags: ["STM32", "FOC", "ROS 2", "C++", "Lidar", "Motor Control"],
+  },
+  {
     id: 4,
     role: "Engineering Intern",
     company: "Yama Vans",
